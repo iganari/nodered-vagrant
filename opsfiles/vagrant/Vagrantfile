@@ -1,0 +1,67 @@
+$script = <<SCRIPT
+  cd /develop/nodered-vagrant/bin
+  /bin/bash init-nodejs.sh
+SCRIPT
+
+Vagrant.configure(2) do |config|
+  # config.vbguest.auto_update = false
+
+  if Vagrant.has_plugin?("vagrant-cachier")
+    config.cache.scope = :box
+  end
+
+  vhosts = [
+    {
+      "config_name" => "nodered-vagrant",
+      "instance_name" => "nodered-vagrant-dev",
+      "ip" => "192.168.33.131",
+      "vbox" => "bento/debian-9.4",
+      "cpu" => 1,
+      "memory" => 512,
+      "inventory" => "debian-9.4"
+    },
+    {
+      "config_name" => "dummy-vm",
+      "instance_name" => "dummy-vm",
+      "ip" => "192.168.33.102",
+      "vbox" => "bento/centos-7.4",
+      "cpu" => 1,
+      "memory" => 512,
+      "inventory" => "dummy"
+    },
+  ]
+
+  vhosts.each do |vhost|
+    config.vm.define vhost["config_name"] do |server|
+      ### determined specific IP.
+      server.vm.network "private_network", ip: vhost["ip"]
+      ### hostname of server
+      server.vm.hostname = vhost["instance_name"]
+      ### box setting
+      server.vm.box = vhost["vbox"]
+      ### vm setting
+      server.vm.provider "virtualbox" do |vb|
+        ### name of virtualbox
+        vb.name = vhost["instance_name"]
+        ### spec define
+        vb.cpus = vhost["cpu"]
+        vb.memory = vhost["memory"]
+        vb.customize ['modifyvm', :id,"--natdnshostresolver1", "on"]
+        vb.customize ['modifyvm', :id,"--natdnsproxy1", "on"]
+      end
+  
+      ### settitng of synced_folder
+      server.vm.synced_folder "../../", "/develop/nodered-vagrant", \
+        :create => true, \
+        :owner  => 'vagrant', \
+        :group  => 'vagrant', \
+        :mount_options => ['dmode=755,fmode=755']
+  
+      server.vm.provision "shell" do |shell|
+        shell.inline = $script
+        shell.args   = vhost["inventory"]
+      end
+    end
+  end
+end
+
