@@ -37,7 +37,7 @@ sudo su - pi
 + :package: アプリのPATHに移動　
 
 ```
-cd /opt/nodered-vagrant
+cd /usr/local/node-red
 ```
 
 + :package: 一般ユーザにてNode-REDをnpmインストールする
