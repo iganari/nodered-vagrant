@@ -13,7 +13,7 @@ Group=pi
 WorkingDirectory=/home/pi
 Nice=5
 Environment="PI_NODE_OPTIONS=--max_old_space_size=256"
-ExecStart=/usr/bin/env /opt/nodered-vagrant/node_modules/node-red/bin/node-red-pi $PI_NODE_OPTIONS $NODE_RED_OPTIONS
+ExecStart=/usr/bin/env /usr/local/node-red/node_modules/node-red/bin/node-red-pi $PI_NODE_OPTIONS $NODE_RED_OPTIONS
 # Use SIGINT to stop
 KillSignal=SIGINT
 # Auto restart on crash

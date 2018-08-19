@@ -45,7 +45,7 @@ chown ${username}:${username} /home/${username}/.vimrc
 
 ### copy install script of Node-RED 
 
-app_path='/opt/nodered-vagrant'
+app_path='/usr/local/node-red'
 
 mkdir                         ${app_path}
 chmod 0777 -R                 ${app_path} 
