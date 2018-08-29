@@ -36,15 +36,14 @@ npm install -g --unsafe-perm node-red
 
 
 ### create working user
-username='pi'
+username='node-red'
 useradd -m -s /bin/bash ${username}
 echo "${username} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${username}
 chmod 0440                                  /etc/sudoers.d/${username}
 cp    /root/.vimrc            /home/${username}/.vimrc
 chown ${username}:${username} /home/${username}/.vimrc
 
-### copy install script of Node-RED 
-
+### copy install script of Node-RED
 app_path='/usr/local/node-red'
 
 mkdir                         ${app_path}
@@ -62,3 +61,10 @@ cp usr/bin/node-red-start /usr/bin/node-red-start
 cp usr/bin/node-red-stop  /usr/bin/node-red-stop
 chmod 0755                /usr/bin/node-red-st* 
 chown root:root           /usr/bin/node-red-st*
+
+### create data dir
+date_dir='/data'
+
+mkdir                            ${data_dir}
+chmod 0777 -R                    ${data_dir}
+chown ${username}:${username} -R ${data_dir}
