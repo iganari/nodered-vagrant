@@ -61,10 +61,3 @@ cp usr/bin/node-red-start /usr/bin/node-red-start
 cp usr/bin/node-red-stop  /usr/bin/node-red-stop
 chmod 0755                /usr/bin/node-red-st* 
 chown root:root           /usr/bin/node-red-st*
-
-### create data dir
-date_dir='/data'
-
-mkdir                            ${data_dir}
-chmod 0777 -R                    ${data_dir}
-chown ${username}:${username} -R ${data_dir}
