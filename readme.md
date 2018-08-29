@@ -28,10 +28,10 @@ vagrant ssh nodered-vagrant
 ### 2. Node-REDのインストール
 
 + :package: 一般ユーザに変更
-    + `pi` を使用する
+    + `node-red` を使用する
 
 ```
-sudo su - pi
+sudo su - node-red
 ```
 
 + :package: アプリのPATHに移動　

@@ -8,9 +8,9 @@ Wants=network.target
 [Service]
 Type=simple
 # Run as normal pi user - feel free to change...
-User=pi
-Group=pi
-WorkingDirectory=/home/pi
+User=node-red
+Group=node-red
+WorkingDirectory=/home/node-red
 Nice=5
 Environment="PI_NODE_OPTIONS=--max_old_space_size=256"
 ExecStart=/usr/bin/env /usr/local/node-red/node_modules/node-red/bin/node-red-pi $PI_NODE_OPTIONS $NODE_RED_OPTIONS
